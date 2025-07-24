@@ -1,0 +1,91 @@
+# ========================================
+# Android - General Build Artifacts
+# ========================================
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Output folders
+build/
+*/build/
+bin/
+gen/
+out/
+
+# ========================================
+# Gradle
+# ========================================
+.gradle/
+.gradle-cache/
+**/build/
+!gradle-wrapper.jar
+local.properties  # Contains SDK path
+
+# ========================================
+# IntelliJ / Android Studio
+# ========================================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Jetpack Compose Preview Cache
+.idea/.compose-cache/
+
+# ========================================
+# Firebase / Crashlytics
+# ========================================
+google-services.json
+firebase-debug.log
+crashlytics.properties
+crashlytics-build.properties
+
+# ========================================
+# Keystore / Secrets (Very Important)
+# ========================================
+*.jks
+*.keystore
+*.pem
+*.p12
+
+# ========================================
+# Logs
+# ========================================
+*.log
+
+# ========================================
+# OS-Specific
+# ========================================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# ========================================
+# VS Code (if used)
+# ========================================
+.vscode/
+
+# ========================================
+# Miscellaneous
+# ========================================
+*.swp
+*.swo
+
+# Heap dumps (rare, large)
+*.hprof
+
+# NDK / Native builds (if not using, still safe to ignore)
+.externalNativeBuild/
+
+# Android Studio captures (screenshots, screen recordings)
+captures/
+
+# Python cache (just in case you use Python scripts)
+*.pyc
+*.pyo
+*.pyd
+__pycache__/

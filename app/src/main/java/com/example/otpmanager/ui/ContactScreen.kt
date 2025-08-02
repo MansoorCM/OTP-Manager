@@ -9,8 +9,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,11 +26,20 @@ import com.example.otpmanager.data.Contact
 import com.example.otpmanager.data.DummyContactsProvider
 
 @Composable
-fun ContactScreen(modifier: Modifier = Modifier) {
+fun ContactScreen(
+    modifier: Modifier = Modifier,
+    onDetailClick: () -> Unit = {}
+) {
     val contacts = DummyContactsProvider.dummyContacts
-    LazyColumn {
-        items(contacts) {
-            ContactItem(it)
+    Scaffold(floatingActionButton = {
+        FloatingActionButton(onClick = onDetailClick) {
+            Icon(Icons.Default.Add, contentDescription = "Add")
+        }
+    }) { paddingValues ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
+            items(contacts) {
+                ContactItem(it)
+            }
         }
     }
 }

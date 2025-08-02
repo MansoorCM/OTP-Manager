@@ -26,10 +26,13 @@ import com.example.otpmanager.data.Contact
 import com.example.otpmanager.data.DummyContactsProvider
 
 @Composable
-fun ContactScreen(modifier: Modifier = Modifier) {
+fun ContactScreen(
+    modifier: Modifier = Modifier,
+    onDetailClick: () -> Unit = {}
+) {
     val contacts = DummyContactsProvider.dummyContacts
     Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = {}) {
+        FloatingActionButton(onClick = onDetailClick) {
             Icon(Icons.Default.Add, contentDescription = "Add")
         }
     }) { paddingValues ->

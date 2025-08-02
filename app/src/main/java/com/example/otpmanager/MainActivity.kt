@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.otpmanager.ui.ContactScreen
+import com.example.otpmanager.ui.navigation.NavGraph
 import com.example.otpmanager.ui.theme.OTPManagerTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppScreen(modifier: Modifier = Modifier) {
-    ContactScreen()
+    NavGraph()
 }
 
 @Preview(showBackground = true)

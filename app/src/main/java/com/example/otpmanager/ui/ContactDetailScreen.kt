@@ -33,7 +33,10 @@ import com.example.otpmanager.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContactDetailScreen(modifier: Modifier = Modifier) {
+fun ContactDetailScreen(
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -43,7 +46,7 @@ fun ContactDetailScreen(modifier: Modifier = Modifier) {
                 )
             },
             navigationIcon = {
-                IconButton({}) {
+                IconButton(onBackClick) {
                     Icon(imageVector = Icons.Default.Clear, "")
                 }
             },
@@ -103,5 +106,5 @@ fun ContactDetailScreen(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun ContactDetailScreenPreview() {
-    ContactDetailScreen()
+    ContactDetailScreen({})
 }

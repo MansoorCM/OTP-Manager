@@ -23,7 +23,7 @@ fun NavGraph(
             ContactScreen(onDetailClick = { navController.navigate(Screen.ContactDetail.route) })
         }
         composable(Screen.ContactDetail.route) {
-            ContactDetailScreen()
+            ContactDetailScreen({ navController.popBackStack() })
         }
     }
 }

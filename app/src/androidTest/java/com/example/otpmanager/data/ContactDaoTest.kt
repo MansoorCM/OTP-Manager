@@ -37,6 +37,15 @@ class ContactDaoTest {
         assertEquals(contact1, res[0])
     }
 
+    @Test
+    fun contactDb_UpdateItem() = runBlocking {
+        dao.insert(contact1)
+        val updatedContact1 = Contact(1, "Carol", "Williams", "9988776655")
+        dao.update(updatedContact1)
+        val res = dao.getAll().first()
+        assertEquals(updatedContact1, res[0])
+    }
+
     @After
     fun closeDb() {
         database.close()

@@ -46,6 +46,22 @@ class ContactDaoTest {
         assertEquals(updatedContact1, res[0])
     }
 
+    @Test
+    fun contactDb_DeleteItem() = runBlocking {
+        dao.insert(contact1)
+        dao.insert(contact2)
+        var res = dao.getAll().first()
+        assertEquals(2, res.size)
+
+        dao.delete(contact1)
+        res = dao.getAll().first()
+        assertEquals(1, res.size)
+
+        dao.delete(contact2)
+        res = dao.getAll().first()
+        assertEquals(0, res.size)
+    }
+
     @After
     fun closeDb() {
         database.close()

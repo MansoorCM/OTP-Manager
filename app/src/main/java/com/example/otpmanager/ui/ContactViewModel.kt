@@ -1,7 +1,12 @@
 package com.example.otpmanager.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.otpmanager.OTPManagerApplication
 import com.example.otpmanager.data.ContactRepository
 import com.example.otpmanager.data.ContactUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +29,15 @@ class ContactViewModel(private val contactRepository: ContactRepository) : ViewM
                 _uiState.update { currentState ->
                     currentState.copy(contacts = contacts)
                 }
+            }
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = this[APPLICATION_KEY] as OTPManagerApplication
+                ContactViewModel(application.contactRepository)
             }
         }
     }

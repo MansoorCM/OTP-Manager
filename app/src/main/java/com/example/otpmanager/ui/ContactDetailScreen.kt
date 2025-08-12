@@ -34,14 +34,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.otpmanager.R
+import com.example.otpmanager.data.Contact
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactDetailScreen(
     onBackClick: () -> Unit,
+    onSaveClick: (Contact) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ContactViewModel = viewModel()
 ) {
+    var firstName by rememberSaveable { mutableStateOf("") }
+    var lastName by rememberSaveable { mutableStateOf("") }
+    var phone by rememberSaveable { mutableStateOf("") }
+
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -56,7 +62,17 @@ fun ContactDetailScreen(
                 }
             },
             actions = {
-                Button({}, modifier = Modifier.padding(16.dp)) {
+                Button(
+                    {
+                        onSaveClick(
+                            Contact(
+                                firstName = firstName,
+                                lastName = lastName,
+                                phoneNum = phone
+                            )
+                        )
+                    }, modifier = Modifier.padding(16.dp)
+                ) {
                     Text(stringResource(R.string.save))
                 }
             }
@@ -71,7 +87,6 @@ fun ContactDetailScreen(
                 .padding(it)
                 .padding(16.dp)
         ) {
-            var firstName by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
                 value = firstName,
                 onValueChange = { firstName = it },
@@ -83,7 +98,6 @@ fun ContactDetailScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            var lastName by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
                 value = lastName,
                 onValueChange = { lastName = it },
@@ -95,7 +109,6 @@ fun ContactDetailScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            var phone by rememberSaveable { mutableStateOf("") }
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number,
@@ -119,5 +132,5 @@ fun ContactDetailScreen(
 @Preview
 @Composable
 fun ContactDetailScreenPreview() {
-    ContactDetailScreen({})
+    ContactDetailScreen({}, {})
 }

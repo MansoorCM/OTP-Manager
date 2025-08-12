@@ -31,6 +31,10 @@ fun NavGraph(
         composable(Screen.ContactDetail.route) {
             ContactDetailScreen(
                 { navController.popBackStack() },
+                {
+                    viewModel.insertContact(it)
+                    navController.popBackStack()
+                },
                 viewModel = viewModel
             )
         }

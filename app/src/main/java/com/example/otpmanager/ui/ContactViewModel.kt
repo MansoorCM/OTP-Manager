@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.otpmanager.OTPManagerApplication
+import com.example.otpmanager.data.Contact
 import com.example.otpmanager.data.ContactRepository
 import com.example.otpmanager.data.ContactUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +22,12 @@ class ContactViewModel(private val contactRepository: ContactRepository) : ViewM
 
     init {
         loadData()
+    }
+
+    fun insertContact(contact: Contact) {
+        viewModelScope.launch {
+            contactRepository.insertContact(contact)
+        }
     }
 
     private fun loadData() {

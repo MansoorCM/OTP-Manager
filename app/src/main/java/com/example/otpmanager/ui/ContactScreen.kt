@@ -18,26 +18,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.otpmanager.data.Contact
-import com.example.otpmanager.data.DummyContactsProvider
 
 @Composable
 fun ContactScreen(
     modifier: Modifier = Modifier,
+    viewModel: ContactViewModel = viewModel(),
     onDetailClick: () -> Unit = {}
 ) {
-    val contacts = DummyContactsProvider.dummyContacts
+    val uiState by viewModel.uiState.collectAsState()
     Scaffold(floatingActionButton = {
         FloatingActionButton(onClick = onDetailClick) {
             Icon(Icons.Default.Add, contentDescription = "Add")
         }
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            items(contacts) {
+            items(uiState.contacts) {
                 ContactItem(it)
             }
         }

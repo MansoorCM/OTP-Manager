@@ -18,15 +18,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -35,18 +40,37 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.otpmanager.R
 import com.example.otpmanager.data.Contact
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactDetailScreen(
     onBackClick: () -> Unit,
-    onSaveClick: (Contact) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ContactViewModel = viewModel()
 ) {
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var phone by rememberSaveable { mutableStateOf("") }
+
+    val snackBarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowSnackBar -> launch {
+                    snackBarHostState.showSnackbar(
+                        context.getString(
+                            event.message
+                        )
+                    )
+                }
+
+                is UiEvent.NavigateBack -> onBackClick()
+            }
+        }
+    }
 
     Scaffold(topBar = {
         TopAppBar(
@@ -64,7 +88,7 @@ fun ContactDetailScreen(
             actions = {
                 Button(
                     {
-                        onSaveClick(
+                        viewModel.onSaveClicked(
                             Contact(
                                 firstName = firstName,
                                 lastName = lastName,
@@ -77,7 +101,7 @@ fun ContactDetailScreen(
                 }
             }
         )
-    }) {
+    }, snackbarHost = { SnackbarHost(snackBarHostState) }) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -132,5 +156,5 @@ fun ContactDetailScreen(
 @Preview
 @Composable
 fun ContactDetailScreenPreview() {
-    ContactDetailScreen({}, {})
+    ContactDetailScreen({})
 }

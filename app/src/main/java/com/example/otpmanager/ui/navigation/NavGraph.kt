@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.otpmanager.ui.ContactDetailScreen
+import com.example.otpmanager.ui.ContactSaveScreen
 import com.example.otpmanager.ui.ContactScreen
 import com.example.otpmanager.ui.ContactViewModel
 
@@ -24,12 +24,12 @@ fun NavGraph(
     ) {
         composable(Screen.Contacts.route) {
             ContactScreen(
-                onDetailClick = { navController.navigate(Screen.ContactDetail.route) },
+                onDetailClick = { navController.navigate(Screen.ContactSave.route) },
                 viewModel = viewModel
             )
         }
-        composable(Screen.ContactDetail.route) {
-            ContactDetailScreen(
+        composable(Screen.ContactSave.route) {
+            ContactSaveScreen(
                 { navController.popBackStack() },
                 viewModel = viewModel
             )

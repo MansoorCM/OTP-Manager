@@ -6,4 +6,6 @@
     <string name="last_name">Last name</string>
     <string name="phone">Phone</string>
     <string name="contact_is_invalid">Contact is invalid.</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="delete_contact">Delete Contact</string>
 </resources>

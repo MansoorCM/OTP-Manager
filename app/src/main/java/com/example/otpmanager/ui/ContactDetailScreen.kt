@@ -76,6 +76,7 @@ fun ContactDetailScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Button({
                 viewModel.deleteContact(contact)
+                onBackClick()
             }) {
                 Text(stringResource(R.string.delete_contact))
             }

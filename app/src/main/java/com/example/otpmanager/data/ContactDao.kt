@@ -14,7 +14,7 @@ interface ContactDao {
     fun getAll(): Flow<List<Contact>>
 
     @Query("SELECT * FROM contacts WHERE id = :id")
-    fun getContactById(id: Int): Flow<Contact>
+    fun getContactById(id: Int): Flow<Contact?>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(contact: Contact)

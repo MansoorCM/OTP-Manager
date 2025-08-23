@@ -74,7 +74,9 @@ fun ContactDetailScreen(
                 Text(stringResource(R.string.send_otp))
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Button({}) {
+            Button({
+                viewModel.deleteContact(contact)
+            }) {
                 Text(stringResource(R.string.delete_contact))
             }
         }

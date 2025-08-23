@@ -1,6 +1,7 @@
 package com.example.otpmanager.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,17 +32,18 @@ import com.example.otpmanager.data.Contact
 fun ContactScreen(
     modifier: Modifier = Modifier,
     viewModel: ContactViewModel = viewModel(),
-    onDetailClick: () -> Unit = {}
+    onSaveClick: () -> Unit = {},
+    onDetailClick: (Int) -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
     Scaffold(floatingActionButton = {
-        FloatingActionButton(onClick = onDetailClick) {
+        FloatingActionButton(onClick = onSaveClick) {
             Icon(Icons.Default.Add, contentDescription = "Add")
         }
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             items(uiState.contacts) {
-                ContactItem(it)
+                ContactItem(it, modifier = Modifier.clickable { onDetailClick(it.id) })
             }
         }
     }

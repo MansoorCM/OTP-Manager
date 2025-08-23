@@ -64,6 +64,16 @@ class ContactViewModel(private val contactRepository: ContactRepository) : ViewM
         }
     }
 
+    fun getContactById(id: Int) {
+        viewModelScope.launch {
+            contactRepository.getContactById(id).collect { contact ->
+                _uiState.update { currentState ->
+                    currentState.copy(contact = contact)
+                }
+            }
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

@@ -45,7 +45,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactSaveScreen(
+    id: Int = -1,
     onBackClick: () -> Unit,
+    onSaveClick: (Contact) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ContactViewModel = viewModel()
 ) {
@@ -88,7 +90,7 @@ fun ContactSaveScreen(
             actions = {
                 Button(
                     {
-                        viewModel.onSaveClicked(
+                        onSaveClick(
                             Contact(
                                 firstName = firstName,
                                 lastName = lastName,
@@ -156,5 +158,5 @@ fun ContactSaveScreen(
 @Preview
 @Composable
 fun ContactSaveScreenPreview() {
-    ContactSaveScreen({})
+    ContactSaveScreen(onBackClick = {}, onSaveClick = {})
 }

@@ -34,7 +34,8 @@ fun NavGraph(
         }
         composable(Screen.ContactSave.route) {
             ContactSaveScreen(
-                { navController.popBackStack() },
+                onBackClick = { navController.popBackStack() },
+                onSaveClick = { viewModel.onSaveClicked(it) },
                 viewModel = viewModel
             )
         }

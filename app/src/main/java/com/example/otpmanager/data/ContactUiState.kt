@@ -1,5 +1,6 @@
 package com.example.otpmanager.data
 
 data class ContactUiState(
-    val contacts: List<Contact> = emptyList()
+    val contacts: List<Contact> = emptyList(),
+    val contact: Contact = Contact(0, "", "", "")
 )

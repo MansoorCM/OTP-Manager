@@ -1,6 +1,5 @@
 package com.example.otpmanager.ui.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -46,6 +45,7 @@ fun NavGraph(
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getInt("contactId") ?: 0
             ContactDetailScreen(
+                { navController.popBackStack() },
                 id,
                 viewModel = viewModel
             )

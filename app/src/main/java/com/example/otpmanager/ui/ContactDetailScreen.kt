@@ -32,6 +32,7 @@ import com.example.otpmanager.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactDetailScreen(
+    onBackClick: () -> Unit,
     contactId: Int,
     modifier: Modifier = Modifier,
     viewModel: ContactViewModel = viewModel()
@@ -45,7 +46,14 @@ fun ContactDetailScreen(
     Scaffold(topBar = {
         TopAppBar(
             {},
-            navigationIcon = { IconButton({}) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "") } })
+            navigationIcon = {
+                IconButton(onBackClick) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        ""
+                    )
+                }
+            })
     }) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -76,5 +84,5 @@ fun ContactDetailScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun ContactDetailScreenPreview() {
-    ContactDetailScreen(0)
+    ContactDetailScreen({}, 0)
 }

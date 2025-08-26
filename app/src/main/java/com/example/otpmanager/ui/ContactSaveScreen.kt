@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,15 +46,28 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactSaveScreen(
-    id: Int = -1,
+    contactId: Int = 0,
     onBackClick: () -> Unit,
     onSaveClick: (Contact) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ContactViewModel = viewModel()
 ) {
-    var firstName by rememberSaveable { mutableStateOf("") }
-    var lastName by rememberSaveable { mutableStateOf("") }
-    var phone by rememberSaveable { mutableStateOf("") }
+
+    LaunchedEffect(contactId) {
+        viewModel.getContactById(contactId)
+    }
+
+    val uiState by viewModel.uiState.collectAsState()
+    val contact = uiState.contact
+    var firstName by rememberSaveable { mutableStateOf(contact.firstName) }
+    var lastName by rememberSaveable { mutableStateOf(contact.lastName) }
+    var phone by rememberSaveable { mutableStateOf(contact.phoneNum) }
+
+    LaunchedEffect(contact) {
+        firstName = contact.firstName
+        lastName = contact.lastName
+        phone = contact.phoneNum
+    }
 
     val snackBarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
@@ -92,6 +106,7 @@ fun ContactSaveScreen(
                     {
                         onSaveClick(
                             Contact(
+                                id = contactId,
                                 firstName = firstName,
                                 lastName = lastName,
                                 phoneNum = phone

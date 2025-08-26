@@ -86,7 +86,16 @@ class ContactViewModel(private val contactRepository: ContactRepository) : ViewM
         }
     }
 
-    fun updateContact(contact: Contact) {
+    fun onUpdateClicked(contact: Contact) {
+        if (isContactValid(contact)) {
+            updateContact(contact)
+            _uiEvent.trySend(UiEvent.NavigateBack)
+        } else {
+            _uiEvent.trySend(UiEvent.ShowSnackBar(R.string.contact_is_invalid))
+        }
+    }
+
+    private fun updateContact(contact: Contact) {
         viewModelScope.launch {
             contactRepository.updateContact(contact)
         }

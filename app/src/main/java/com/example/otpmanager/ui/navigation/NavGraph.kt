@@ -51,5 +51,18 @@ fun NavGraph(
                 viewModel = viewModel
             )
         }
+        composable(Screen.ContactEdit.route,
+            arguments = listOf(
+                navArgument("contactId") { type = NavType.IntType }
+            )
+        ) {
+            val id = it.arguments?.getInt("contactId") ?: 0
+            ContactSaveScreen(
+                id,
+                { navController.popBackStack() },
+                { viewModel.onSaveClicked(it) },
+                viewModel = viewModel
+            )
+        }
     }
 }

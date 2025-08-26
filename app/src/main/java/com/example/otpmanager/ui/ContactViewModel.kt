@@ -86,6 +86,12 @@ class ContactViewModel(private val contactRepository: ContactRepository) : ViewM
         }
     }
 
+    fun updateContact(contact: Contact) {
+        viewModelScope.launch {
+            contactRepository.updateContact(contact)
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

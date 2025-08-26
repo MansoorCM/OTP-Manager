@@ -34,6 +34,7 @@ import com.example.otpmanager.R
 @Composable
 fun ContactDetailScreen(
     onBackClick: () -> Unit,
+    onEditClick: (Int) -> Unit,
     contactId: Int,
     modifier: Modifier = Modifier,
     viewModel: ContactViewModel = viewModel()
@@ -56,7 +57,7 @@ fun ContactDetailScreen(
                 }
             },
             actions = {
-                IconButton({}) {
+                IconButton({ onEditClick(contactId) }) {
                     Icon(Icons.Default.Edit, "")
                 }
             })
@@ -93,5 +94,5 @@ fun ContactDetailScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun ContactDetailScreenPreview() {
-    ContactDetailScreen({}, 0)
+    ContactDetailScreen({}, {}, 0)
 }

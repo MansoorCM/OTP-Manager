@@ -47,6 +47,7 @@ fun NavGraph(
             val id = backStackEntry.arguments?.getInt("contactId") ?: 0
             ContactDetailScreen(
                 { navController.popBackStack() },
+                { navController.navigate(Screen.ContactEdit.createRoute(it)) },
                 id,
                 viewModel = viewModel
             )
@@ -60,7 +61,7 @@ fun NavGraph(
             ContactSaveScreen(
                 id,
                 { navController.popBackStack() },
-                { viewModel.onSaveClicked(it) },
+                { viewModel.onUpdateClicked(it) },
                 viewModel = viewModel
             )
         }

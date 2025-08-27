@@ -1,6 +1,5 @@
 package com.example.otpmanager.ui.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -35,7 +34,8 @@ fun NavGraph(
         }
         composable(Screen.ContactSave.route) {
             ContactSaveScreen(
-                { navController.popBackStack() },
+                onBackClick = { navController.popBackStack() },
+                onSaveClick = { viewModel.onSaveClicked(it) },
                 viewModel = viewModel
             )
         }
@@ -46,7 +46,22 @@ fun NavGraph(
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getInt("contactId") ?: 0
             ContactDetailScreen(
+                { navController.popBackStack() },
+                { navController.navigate(Screen.ContactEdit.createRoute(it)) },
                 id,
+                viewModel = viewModel
+            )
+        }
+        composable(Screen.ContactEdit.route,
+            arguments = listOf(
+                navArgument("contactId") { type = NavType.IntType }
+            )
+        ) {
+            val id = it.arguments?.getInt("contactId") ?: 0
+            ContactSaveScreen(
+                id,
+                { navController.popBackStack() },
+                { viewModel.onUpdateClicked(it) },
                 viewModel = viewModel
             )
         }

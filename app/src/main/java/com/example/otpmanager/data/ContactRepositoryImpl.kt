@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 class ContactRepositoryImpl(private val contactDao: ContactDao) : ContactRepository {
     override fun getAllContacts(): Flow<List<Contact>> = contactDao.getAll()
-    override fun getContactById(id: Int): Flow<Contact> = contactDao.getContactById(id)
+    override fun getContactById(id: Int): Flow<Contact?> = contactDao.getContactById(id)
 
 
     override suspend fun insertContact(contact: Contact) {

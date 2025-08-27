@@ -67,10 +67,37 @@ class ContactViewModel(private val contactRepository: ContactRepository) : ViewM
     fun getContactById(id: Int) {
         viewModelScope.launch {
             contactRepository.getContactById(id).collect { contact ->
-                _uiState.update { currentState ->
-                    currentState.copy(contact = contact)
+                if (contact == null) {
+                    _uiState.update { currentState ->
+                        currentState.copy(contact = Contact(0, "", "", ""))
+                    }
+                } else {
+                    _uiState.update { currentState ->
+                        currentState.copy(contact = contact)
+                    }
                 }
             }
+        }
+    }
+
+    fun deleteContact(contact: Contact) {
+        viewModelScope.launch {
+            contactRepository.deleteContact(contact)
+        }
+    }
+
+    fun onUpdateClicked(contact: Contact) {
+        if (isContactValid(contact)) {
+            updateContact(contact)
+            _uiEvent.trySend(UiEvent.NavigateBack)
+        } else {
+            _uiEvent.trySend(UiEvent.ShowSnackBar(R.string.contact_is_invalid))
+        }
+    }
+
+    private fun updateContact(contact: Contact) {
+        viewModelScope.launch {
+            contactRepository.updateContact(contact)
         }
     }
 

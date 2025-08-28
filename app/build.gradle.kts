@@ -1,8 +1,14 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp") version "2.1.0-1.0.29"
+}
+
+val localProperties = Properties().apply {
+    rootProject.file("local.properties").reader().use { load(it) }
 }
 
 android {
@@ -17,6 +23,21 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField(
+            "String",
+            "TWILIO_ACCOUNT_SID",
+            "\"${localProperties["TWILIO_ACCOUNT_SID"]}\""
+        )
+        buildConfigField(
+            "String",
+            "TWILIO_AUTH_TOKEN",
+            "\"${localProperties["TWILIO_AUTH_TOKEN"]}\""
+        )
+        buildConfigField(
+            "String",
+            "TWILIO_PHONE",
+            "\"${localProperties["TWILIO_PHONE"]}\""
+        )
     }
 
     buildTypes {
@@ -37,6 +58,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

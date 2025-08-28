@@ -8,4 +8,7 @@
     <string name="contact_is_invalid">Contact is invalid.</string>
     <string name="send_otp">Send OTP</string>
     <string name="delete_contact">Delete Contact</string>
+    <string name="sms_success">"SMS Successfully Send."</string>
+    <string name="sms_failure">"SMS Send failed. Make sure phone num is correct and verified."</string>
+    <string name="sms_failure_internet">"SMS Send failed. Make sure there is proper internet connection."</string>
 </resources>

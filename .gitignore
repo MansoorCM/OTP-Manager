@@ -21,7 +21,7 @@ out/
 .gradle-cache/
 **/build/
 !gradle-wrapper.jar
-local.properties  # Contains SDK path
+local.properties
 
 # ========================================
 # IntelliJ / Android Studio
